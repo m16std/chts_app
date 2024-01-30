@@ -1,3 +1,4 @@
+import 'package:chts_app/pages/bobr.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:invert_colors/invert_colors.dart';
@@ -14,19 +15,21 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: const Color.fromARGB(255, 36, 36, 36),
-        appBar: appBar(),
-        body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          searchField(),
-          const SizedBox(
-            height: 20,
-          ),
-          listField()
-        ]));
+        appBar: appBar(context),
+        body: homeBody());
+  }
+
+  Column homeBody() {
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      //searchField(),
+      //const SizedBox(height: 20,),
+      listField()
+    ]);
   }
 
   Container listField() {
     return Container(
-        height: 560,
+        height: 690,
         child: ListView.separated(
             itemCount: 20,
             scrollDirection: Axis.vertical,
@@ -35,6 +38,7 @@ class _HomePageState extends State<HomePage> {
                   height: 10,
                 ),
             itemBuilder: (context, index) {
+              const bobrName = 'Samuel';
               return ListTile(
                 shape: const RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(15))),
@@ -44,7 +48,7 @@ class _HomePageState extends State<HomePage> {
                   height: 40,
                 ),
                 title: Text(
-                  'bóbr kurwa',
+                  '$bobrName kurwa',
                   style: Theme.of(context).textTheme.bodyMedium,
                 ),
                 subtitle: Text(
@@ -55,21 +59,20 @@ class _HomePageState extends State<HomePage> {
                   Icons.arrow_forward_ios,
                   size: 20.0,
                 ),
+                onTap: () {
+                  Navigator.of(context).pushNamed('/bobr', arguments: bobrName);
+                },
               );
             }));
   }
 
-  AppBar appBar() {
+  AppBar appBar(context) {
     return AppBar(
         scrolledUnderElevation: 0.0,
         backgroundColor: const Color.fromARGB(255, 36, 36, 36),
-        title: const Text(
+        title: Text(
           'ej kurwa bober',
-          style: TextStyle(
-            color: Color.fromARGB(255, 255, 255, 255),
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-          ),
+          style: Theme.of(context).textTheme.bodyLarge,
         ),
         centerTitle: true,
         leading: GestureDetector(
