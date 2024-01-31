@@ -1,6 +1,4 @@
-import 'dart:developer';
-
-import 'package:chts_app/pages/home.dart';
+import 'package:chts_app/repositories/coins_repos.dart';
 import 'package:flutter/material.dart';
 
 class BobrPage extends StatefulWidget {
@@ -25,40 +23,44 @@ class _BobrPageState extends State<BobrPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: const Color.fromARGB(255, 36, 36, 36),
-        appBar: AppBar(
-            scrolledUnderElevation: 0.0,
-            backgroundColor: const Color.fromARGB(255, 36, 36, 36),
-            title: Text(
-              bobrName ?? '...',
-              style: Theme.of(context).textTheme.bodyLarge,
-            ),
-            centerTitle: true,
-            leading: GestureDetector(
-              onTap: () {
-                Navigator.of(context).pushNamed('/');
-              },
+      backgroundColor: const Color.fromARGB(255, 36, 36, 36),
+      appBar: AppBar(
+          scrolledUnderElevation: 0.0,
+          backgroundColor: const Color.fromARGB(255, 36, 36, 36),
+          title: Text(
+            bobrName ?? '...',
+            style: Theme.of(context).textTheme.bodyLarge,
+          ),
+          centerTitle: true,
+          leading: GestureDetector(
+            onTap: () {
+              Navigator.of(context).pushNamed('/');
+            },
+            child: Container(
+                margin: const EdgeInsets.all(10),
+                alignment: Alignment.center,
+                decoration:
+                    BoxDecoration(borderRadius: BorderRadius.circular(15)),
+                child: const Icon(Icons.arrow_back_ios)),
+          ),
+          actions: [
+            GestureDetector(
+              onTap: () {},
               child: Container(
                   margin: const EdgeInsets.all(10),
                   alignment: Alignment.center,
+                  width: 37,
                   decoration:
                       BoxDecoration(borderRadius: BorderRadius.circular(15)),
-                  child: const Icon(Icons.arrow_back_ios)),
+                  child: const Icon(Icons.more_horiz)),
             ),
-            actions: [
-              GestureDetector(
-                onTap: () {},
-                child: Container(
-                    margin: const EdgeInsets.all(10),
-                    alignment: Alignment.center,
-                    width: 37,
-                    decoration:
-                        BoxDecoration(borderRadius: BorderRadius.circular(15)),
-                    child: const Icon(Icons.more_horiz)),
-              ),
-            ]),
-        body: Container(
+          ]),
+      body: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Container(
           child: Text('Ja pierdolę, patrzcie co spotkałem. $bobrName, kurwa!'),
-        ));
+        ),
+      ),
+    );
   }
 }
