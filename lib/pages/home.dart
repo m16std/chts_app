@@ -1,8 +1,11 @@
 import 'package:chts_app/pages/bobr.dart';
+import 'package:chts_app/repositories/abstract_coins_repos.dart';
 import 'package:chts_app/repositories/coins_repos.dart';
 import 'package:chts_app/repositories/models/coin_model.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get_it/get_it.dart';
 import 'package:invert_colors/invert_colors.dart';
 
 class HomePage extends StatefulWidget {
@@ -16,18 +19,22 @@ class _HomePageState extends State<HomePage> {
   List<Coin>? _coinsList;
 
   @override
+  void initState() {
+    _loadCoins();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 36, 36, 36),
-      appBar: appBar(context),
-      body: homeBody(),
-      floatingActionButton: FloatingActionButton(
-          child: const Icon(Icons.download_done),
-          onPressed: () async {
-            _coinsList = await CoinsRepository().getCoinsList();
-            setState(() {});
-          }),
-    );
+        backgroundColor: const Color.fromARGB(255, 36, 36, 36),
+        appBar: appBar(context),
+        body: homeBody());
+  }
+
+  Future<void> _loadCoins() async {
+    _coinsList = await GetIt.I<AbstractCoinsRepository>().getCoinsList();
+    setState(() {});
   }
 
   Column homeBody() {
@@ -42,7 +49,7 @@ class _HomePageState extends State<HomePage> {
     return Container(
         height: 690,
         child: (_coinsList == null)
-            ? const SizedBox()
+            ? const Center(child: CircularProgressIndicator())
             : ListView.separated(
                 itemCount: _coinsList!.length,
                 scrollDirection: Axis.vertical,
@@ -55,8 +62,8 @@ class _HomePageState extends State<HomePage> {
                   return ListTile(
                     shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(15))),
-                    leading: Image.asset(
-                      "assets/images/bobr.jpg",
+                    leading: Image.network(
+                      _coinsList![index].imageUrl,
                       width: 40,
                       height: 40,
                     ),

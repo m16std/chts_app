@@ -1,8 +1,14 @@
 import 'package:chts_app/pages/bobr.dart';
+import 'package:chts_app/repositories/abstract_coins_repos.dart';
+import 'package:chts_app/repositories/coins_repos.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'pages/home.dart';
 
 void main() {
+  GetIt.I.registerLazySingleton<AbstractCoinsRepository>(
+      () => CoinsRepository(dio: Dio()));
   runApp(const MyApp());
 }
 

@@ -4,19 +4,23 @@ import 'dart:convert';
 class Coin {
   final String name;
   final double price;
+  final String imageUrl;
 
   Coin({
     required this.name,
     required this.price,
+    required this.imageUrl,
   });
 
   Coin copyWith({
     String? name,
     double? price,
+    String? imageUrl,
   }) {
     return Coin(
       name: name ?? this.name,
       price: price ?? this.price,
+      imageUrl: imageUrl ?? this.imageUrl,
     );
   }
 
@@ -24,6 +28,7 @@ class Coin {
     return <String, dynamic>{
       'name': name,
       'price': price,
+      'imageUrl': imageUrl,
     };
   }
 
@@ -31,6 +36,7 @@ class Coin {
     return Coin(
       name: map['name'] as String,
       price: map['price'] as double,
+      imageUrl: map['imageUrl'] as String,
     );
   }
 
@@ -40,15 +46,17 @@ class Coin {
       Coin.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
-  String toString() => 'Coins(name: $name, price: $price)';
+  String toString() => 'Coin(name: $name, price: $price, imageUrl: $imageUrl)';
 
   @override
   bool operator ==(covariant Coin other) {
     if (identical(this, other)) return true;
 
-    return other.name == name && other.price == price;
+    return other.name == name &&
+        other.price == price &&
+        other.imageUrl == imageUrl;
   }
 
   @override
-  int get hashCode => name.hashCode ^ price.hashCode;
+  int get hashCode => name.hashCode ^ price.hashCode ^ imageUrl.hashCode;
 }
