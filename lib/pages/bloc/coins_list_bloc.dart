@@ -1,4 +1,5 @@
 import 'package:chts_app/repositories/repositories.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'coins_list_event.dart';
@@ -8,7 +9,8 @@ class CoinsListBloc extends Bloc<CoinsListEvent, CoinsListState> {
   CoinsListBloc(this.coinsRepository) : super(CoinsListInitial()) {
     on<LoadCoinsList>((event, emit) async {
       try {
-        print('запрос сука');
+        emit(CoinsListLoading());
+        debugPrint('запрос сука');
         final coinsList = await coinsRepository.getCoinsList();
         emit(CoinsListLoaded(coinsList: coinsList));
       } catch (e) {
