@@ -13,8 +13,8 @@ class CoinsRepository implements AbstractCoinsRepository {
   @override
   Future<List<Coin>> getCoinsList() async {
     final response = await Dio().get(
-        'https://min-api.cryptocompare.com/data/pricemultifull?fsyms=BTC,ETH,BNB,XRP,TON,NEAR,BONK,DOGE,KAS,SOD,AID,SOL,CAD,DOV,SEI,RUNE&tsyms=USD');
-    debugPrint(response.toString());
+        'https://min-api.cryptocompare.com/data/pricemaultifull?fsyms=BTC,ETH,BNB,XRP,TON,NEAR,BONK,DOGE,KAS,SOD,AID,SOL,CAD,DOV,SEI,RUNE&tsyms=USD');
+    //debugPrint(response.toString());
     final rawData = response.data as Map<String, dynamic>;
     final data = rawData['RAW'] as Map<String, dynamic>;
     final coinsList = data.entries.map((e) {

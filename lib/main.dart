@@ -1,4 +1,4 @@
-import 'package:chts_app/pages/bobr.dart';
+import 'package:chts_app/pages/coin.dart';
 import 'package:chts_app/repositories/abstract_coins_repos.dart';
 import 'package:chts_app/repositories/coins_repos.dart';
 import 'package:dio/dio.dart';
